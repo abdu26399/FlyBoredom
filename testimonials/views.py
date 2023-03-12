@@ -1,3 +1,10 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
+from .models import Testimonial
 
-# Create your views here.
+from django.views.generic.list import ListView
+
+#LoginRequiredMixin
+class TestimonialListView(ListView):
+    model = Testimonial
+    template_name = 'testimonials/list_testimonials.html'

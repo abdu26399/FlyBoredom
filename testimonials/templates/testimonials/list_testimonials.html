@@ -3,21 +3,58 @@
 
 {% block content %}
 testimonial list
-
+<div class="row row-cols-1 row-cols-md-4 g-4">
 {% for testimonial in testimonial_list %}
-    <div>
+    {% comment %} <div>
     <p>{{testimonial.title}}</p>    
     <p>{{testimonial.location}}</p>
     <p>{{testimonial.testimonial}}</p>
-    <p>{{testimonial.date_added}}</p>
+    <p>{{testimonial.date_added}}</p> {% endcomment %}
+        {% comment %} {{testimonial.photos.all.0.photo.url}}
+        <img src="{{testimonial.photos.all.0.photo.url}}" alt="" width="100" height="100"> {% endcomment %}
     
-    {% for photo in testimonial.photos.all %}
-        <img src="{{ photo.photo.url }}" alt="" width="100" height="100">
+        {% comment %} <img src="{{ photo.photo.url }}" alt="" width="100" height="100"> {% endcomment %}
         
-    {% endfor %}
+         {% comment %} <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">            
+              <img src="{{testimonial.photos.all.0.photo.url}}" class="d-block w-100" alt="...">            
+            </div>
+            <div class="carousel-item">
+                <img src="..." class="d-block w-100" alt="...">
+            </div>           
+          </div>
+        </div>  {% endcomment %}
+        <div class="col">
+        <div class="card h-100">
+          {% comment %} <img src="{{testimonial.photos.all.0.photo.url}}" class="card-img-top" width="200" height="200" alt="..."> {% endcomment %}
+            <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+             <div class="carousel-item active">
+                <img src="{{testimonial.photos.all.0.photo.url}}" class="card-img-top" width="200" height="200" alt="...">
+             </div> 
+               {%for photo in testimonial.photos.all%}
+                <div class="carousel-item">
+                    <img src="{{photo.photo.url}}" class="card-img-top" width="200" height="200" alt="...">
+                </div>
+                {% endfor %} 
+            </div>
+            </div>
+          <div class="card-body">
+            <h5 class="card-title">{{testimonial.title}}</h5>
+            <p class="card-text">{{testimonial.testimonial|truncatechars:100}}</p>
+          </div>
+          <div class="card-footer">
+              <small class="text-muted">{{testimonial.location}}</small>
+            </div>
     </div>
-    {% comment %} {% for photo in testimonial.photos %}
-        <img src="{{photo.url}}" width="100" height="100">
-    {% endfor %} {% endcomment %}
+  </div> 
+      
+
+   
+    
+
+    
 {% endfor %}
+</div>
 {% endblock %}

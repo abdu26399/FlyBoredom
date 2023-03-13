@@ -3,4 +3,21 @@
 
 {% block content %}
 testimonial list
+
+{% for testimonial in testimonial_list %}
+    <div>
+    <p>{{testimonial.title}}</p>    
+    <p>{{testimonial.location}}</p>
+    <p>{{testimonial.testimonial}}</p>
+    <p>{{testimonial.date_added}}</p>
+    
+    {% for photo in testimonial.photos.all %}
+        <img src="{{ photo.photo.url }}" alt="" width="100" height="100">
+        
+    {% endfor %}
+    </div>
+    {% comment %} {% for photo in testimonial.photos %}
+        <img src="{{photo.url}}" width="100" height="100">
+    {% endfor %} {% endcomment %}
+{% endfor %}
 {% endblock %}

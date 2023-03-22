@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Owner Dashboard</h1>
+    <div class="container border rounded">
+        <h2>Latest Testimonials</h2>
+        <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%"
+             data-bs-smooth-scroll="true" class="scrollspy-example bg-body-tertiary p-3 rounded-2 row" tabindex="0">
+            {% for testimonial in latest_testimonials %}
+                <div class="card border rounded" style="width: 18rem; padding: 0;">
+                    {% if testimonial.photos.all %}
+                        <img src="{{ testimonial.photos.all.0.photo.url }}" class="card-img-top" alt="...">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ testimonial.title }}</h5>
+                        <p class="card-text">{{ testimonial.testimonial|truncatechars:100 }}</p>
+                        <a class="btn btn-danger" href="{% url "owner_admin:delete_testimonial" testimonial.id %}">
+                            Delete
+                        </a>
+                    </div>
+                    <div class="card-footer">
+                        <p class="card-text"><small class="text-muted">By: {{ testimonial.user.first_name }}
+                            {{ testimonial.user.last_name }}</small></p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

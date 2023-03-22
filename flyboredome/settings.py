@@ -39,13 +39,15 @@ INSTALLED_APPS = [
 
     # 3rd party
     'crispy_forms',
+    'crispy_bootstrap5',
 
     # Modules
-    'testimonials',
-    'owner_admin',
+    'testimonials.apps.TestimonialsConfig',
+    'owner_admin.apps.OwnerAdminConfig',
 ]
 
-CRISPY_TEMPLATE_PACK = 'bootstrap'
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

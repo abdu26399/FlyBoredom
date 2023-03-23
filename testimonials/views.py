@@ -22,7 +22,7 @@ class CreateTestimonialView(CreateView):
         instance = form.save()
         images = self.request.FILES.getlist('images')
         for image in images:
-            Photos.objects.create(testimonial=instance,photo=image)
+            Photos.objects.create(testimonial=instance, photo=image)
 
         return super(CreateTestimonialView, self).form_valid(form)
         

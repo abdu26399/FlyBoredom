@@ -1,4 +1,7 @@
 from django.db import models
+from django.utils import timezone
+
+from uuid import uuid4
 
 
 class Offers(models.Model):
@@ -9,6 +12,23 @@ class Offers(models.Model):
     to_date = models.DateTimeField()
     image = models.ImageField(upload_to='images/', blank=True, null=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
+    spots_available = models.PositiveIntegerField(default=0)
+
+    def save(self, *args, **kwargs):
+        if self.image:
+            ext = self.image.name.split('.')[-1]
+            self.image.name = f'{uuid4()}.{ext}'
+        super().save(*args, **kwargs)
+
+    def status(self):
+        if self.spots_available == 0:
+            return 'Sold Out'
+        elif self.from_date > timezone.now():
+            return 'Coming Soon'
+        elif self.from_date <= timezone.now() <= self.to_date:
+            return 'Available'
+        elif self.to_date < timezone.now():
+            return 'Expired'
 
     class Meta:
         ordering = ['-date_added']

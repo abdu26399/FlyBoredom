@@ -9,7 +9,6 @@ class Testimonial(models.Model):
     testimonial = models.TextField()
     # photo = models.ImageField(upload_to='photos',null=True,blank=True)   
     date_added = models.DateTimeField(auto_now_add=True)
-
     
     class Meta:
         ordering = ['-date_added']        
@@ -20,7 +19,7 @@ class Testimonial(models.Model):
 
 class Photos(models.Model):
     testimonial = models.ForeignKey(Testimonial, on_delete=models.CASCADE, related_name="photos")
-    photo = models.ImageField(upload_to='photos/%Y/%m/%d/%H/%M/%S/',null=True,blank=True)
+    photo = models.ImageField(upload_to='photos/%Y/%m/%d/%H/%M/%S/', null=True, blank=True)
     date_added = models.DateTimeField(auto_now_add=True)
 
     class Meta:

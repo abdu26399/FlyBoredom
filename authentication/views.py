@@ -8,7 +8,6 @@ from django.db import IntegrityError
 
 # Create your views here
 
-
 def home(request):
     return render(request, "authentication/index.html")
 
@@ -20,12 +19,6 @@ def signup(request):
         lastname = request.POST['lastname']
         email = request.POST['email']
         pwd1 = request.POST['pwd1']
-        pwd2 = request.POST['pwd2']
-
-        # Check if passwords match
-        if pwd1 != pwd2:
-            messages.error(request, "Passwords do not match!")
-            return redirect('signup')
 
         # Create a user object
         try:
@@ -39,7 +32,6 @@ def signup(request):
             return redirect('signin')
 
         except IntegrityError:
-            messages.error(request, "This username already exists. Please try another one.")
             return redirect('signup')
 
     return render(request, "authentication/signup.html")
@@ -61,7 +53,7 @@ def signin(request):
 
         #credentials not matched
         else:
-            messages.error(request, "Incorrect credentials!")
+            messages.error(request, " Incorrect credentials! Please check your Username and Password. Try again")
             return redirect('home')
 
     return render(request, "authentication/signin.html")

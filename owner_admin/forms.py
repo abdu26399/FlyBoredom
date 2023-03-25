@@ -13,7 +13,7 @@ class AddOrEditOfferForm(forms.ModelForm):
             self.add_error('to_date', 'To date must be after from date.')
             return False
         return True
-
+        
     class Meta:
         model = Offers
         fields = '__all__'

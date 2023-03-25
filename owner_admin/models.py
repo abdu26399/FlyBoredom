@@ -13,6 +13,7 @@ class Offers(models.Model):
     image = models.ImageField(upload_to='images/', blank=True, null=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     spots_available = models.PositiveIntegerField(default=0)
+    location = models.CharField(max_length=100, blank=True)
 
     def save(self, *args, **kwargs):
         if self.image:

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-6" style="margin-top: 50px;">
+      {% if offer.image %}
+      <img class="img-fluid" src="{{ offer.image.url }}" alt="{{ offer.offer }}">
+      {% endif %}
+    </div>
+    <div class="col-md-6" style="margin-top: 50px;">
+      <h1>{{ offer.offer }}</h1>
+      <p>{{ offer.description }}</p>
+      <ul>
+        <li><strong>Location:</strong> {{ offer.location }}</li>
+        <li><strong>Price per person:</strong> ${{ offer.price }}</li>
+        <li><strong>Spots available:</strong> {{ offer.spots_available }}</li>
+        <li><strong>Status:</strong> {{ offer.status }}</li>
+      </ul>
+{#      <form method="post" action="{% url 'offers:add_to_cart' offer.pk %}">#}
+{#        {% csrf_token %}#}
+        <input type="number" name="quantity" min="1" max="{{ offer.spots_available }}" value="1">
+        <button type="submit" class="btn btn-primary">Add to cart</button>
+{#      </form>#}
+    </div>
+  </div>
+</div>
+{% endblock %}

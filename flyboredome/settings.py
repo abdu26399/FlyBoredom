@@ -39,11 +39,12 @@ INSTALLED_APPS = [
 
     # 3rd party
     'crispy_forms',
-    'crispy_bootstrap5',
+    'crispy_forms.bootstrap',
 
     # Modules
     'testimonials.apps.TestimonialsConfig',
     'owner_admin.apps.OwnerAdminConfig',
+    'offers.apps.OffersConfig'
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'

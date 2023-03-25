@@ -2,45 +2,91 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Authentication</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1"> <link rel="stylesheet" href="">
-    </head>
+    <title>Sign-Up</title>
+    <style>
+    body {
+        background-image: url('https://picsum.photos/1920/1080');
+        background-size: cover;
+        background-position: center;
+        font-family: Arial, sans-serif;
+    }
+    /* Custom background image for smaller screens */
+    @media only screen and (max-width: 768px) {
+        body {
+            background-image: url('https://picsum.photos/1024/768');
+        }
+    }
 
-    <body>
+    /* Custom background image for larger screens */
+    @media only screen and (min-width: 1200px) {
+        body {
+            background-image: url('https://picsum.photos/1920/1080');
+        }
+    }
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
 
+        .form-container h3 {
+            text-align: center;
+        }
+
+        .form-container label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-container input[type="text"],
+        .form-container input[type="email"],
+        .form-container input[type="password"] {
+            width: 95%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-container button[type="submit"] {
+            display: block;
+            margin: 0 auto;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .form-container button[type="submit"]:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
         <h3>Sign Up</h3>
-
         <form action="/signup" method="post">
-        {% csrf_token %}
-            <label for="">Username</label>
-            <input type="text" id="username" name="username" placeholder="Create a username (Note: Combination of Letters and Numbers Eg:Usama123)" required>
-            <br>
-
-            <label for="">First name</label>
+            {% csrf_token %}
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Create a username" required>
+            <label for="firstname">First name</label>
             <input type="text" id="firstname" name="firstname" placeholder="Enter your First name" required>
-            <br>
-
-            <label for="">Last name</label>
+            <label for="lastname">Last name</label>
             <input type="text" id="lastname" name="lastname" placeholder="Enter your Last name" required>
-            <br>
-
-            <label for="">Email Address</label>
+            <label for="email">Email Address</label>
             <input type="email" id="email" name="email" placeholder="Enter your Email Address" required>
-            <br>
-
-            <label for="">Password</label>
+            <label for="pwd1">Password</label>
             <input type="password" id="pwd1" name="pwd1" placeholder="Create password" required>
-            <br>
-
-            <label for="">Confirm Password</label>
+            <label for="pwd2">Confirm Password</label>
             <input type="password" id="pwd2" name="pwd2" placeholder="Confirm password" required>
-            <br>
             <button type="submit">Sign Up</button>
         </form>
-
-
-    <script src="" async defer></script>
-    </body>
+    </div>
+</body>
 </html>

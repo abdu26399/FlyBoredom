@@ -2,30 +2,70 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Authentication</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1"> <link rel="stylesheet" href="">
-    </head>
-    <body>
+    <title>Sign-In</title>
+    <style>
+        body {
+            background-image: url('https://picsum.photos/1920/1080');
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+        }
 
-        <h3>Sign Up</h3>
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
 
+        .form-container h3 {
+            text-align: center;
+        }
+
+        .form-container label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-container input[type="text"],
+        .form-container input[type="password"] {
+            width: 95%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-container button[type="submit"] {
+            display: block;
+            margin: 0 auto;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .form-container button[type="submit"]:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h3>Sign In</h3>
         <form action="/signin" method="post">
-        {% csrf_token %}
-            <label for="">Username</label>
+            {% csrf_token %}
+            <label for="username">Username</label>
             <input type="text" id="username" name="username" placeholder="Enter your username" required>
-            <br>
-
-            <label for="">Password</label>
+            <label for="pwd1">Password</label>
             <input type="password" id="pwd1" name="pwd1" placeholder="Enter your password" required>
-            <br>
-
-
             <button type="submit">Sign In</button>
         </form>
-
-
-    <script src="" async defer></script>
-    </body>
+    </div>
+</body>
 </html>

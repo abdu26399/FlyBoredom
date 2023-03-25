@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Authentication</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+            color: #333333;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        h3 {
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+        h4 {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+        .alert {
+            margin-bottom: 30px;
+        }
+        button[type="submit"] {
+            margin-right: 10px;
+        }
+        .btn-group {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        <strong>Message:</strong>{{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endfor %}
+
+    <div class="container">
+        <h3>Welcome to FlyBoard</h3>
+
+        {% if user.is_authenticated %}
+            <!-- Display a welcome message and sign-out button if the user is authenticated -->
+        <h3>Hello {{ firstname }}</h3>
+        <h4>You have successfully logged in </h4>
+        <div class="btn-group">
+            <button type="submit" class="btn btn-primary"> <a href="/signout" style="color:white;">SignOut</a></button>
+        </div>
+        {% else %}
+            <!-- Display sign-up and sign-in buttons if the user is not authenticated -->
+        <div class="btn-group">
+            <button type="submit" class="btn btn-primary"> <a href="/signup" style="color:white;">SignUp</a></button>
+            <button type="submit" class="btn btn-primary"> <a href="/signin" style="color:white;">SignIn</a></button>
+        </div>
+        {% endif %}
+    </div>
+
+    <script src="" async defer></script>
+</body>
+</html>

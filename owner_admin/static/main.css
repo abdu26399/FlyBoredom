@@ -1,0 +1,12 @@
+.container-header {
+    position: relative;
+    padding: 10px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.container-header .top-right {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 10px;
+}

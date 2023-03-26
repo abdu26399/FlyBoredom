@@ -7,11 +7,6 @@ from django.db import IntegrityError
 
 # Create your views here
 
-def home(request):
-    # Render the index.html template
-    return render(request, "authentication/index.html")
-
-
 def signup(request):
     if request.method == "POST":
         # Get the form data
@@ -53,13 +48,14 @@ def signin(request):
         # If the user is authenticated, log them in and redirect to the index page with their name displayed
         if user is not None:
             login(request, user)
-            firstname = user.first_name
-            return render(request, "authentication/index.html", {'firstname': firstname})
+            next = request.GET.get("next", "/")
+            list(messages.get_messages(request))
+            return redirect(next)
 
         # If the user is not authenticated, add an error message and redirect back to the home page
         else:
             messages.error(request, " Incorrect credentials! Please check your Username and Password. Try again")
-            return redirect('home')
+            return redirect('signin')
 
     # Render the signin.html template
     return render(request, "authentication/signin.html")

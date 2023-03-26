@@ -1,106 +1,134 @@
 {% extends 'base.html' %}
 {% block content %}
-
 <head>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<script>
-$(document).ready(function() {
-  $('input[name="sort_by"]').change(function() {
-    var selectedOption = $(this).val();
-    var sortOrderSelect = $('#sort_order');
-
-    if (selectedOption === 'price') {
-      sortOrderSelect.empty();
-      sortOrderSelect.append($('<option>', { value: 'asc', text: 'Price Low to High' }));
-      sortOrderSelect.append($('<option>', { value: 'desc', text: 'Price High to Low' }));
-    } else if (selectedOption === 'date_added') {
-      sortOrderSelect.empty();
-      sortOrderSelect.append($('<option>', { value: 'asc', text: 'Oldest First' }));
-      sortOrderSelect.append($('<option>', { value: 'desc', text: 'Newest First' }));
-    }
-  });
-});
-</script>
-
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		$(document).ready(function() {
+		  $('input[name="sort_by"]').change(function() {
+		    var selectedOption = $(this).val();
+		    var sortOrderSelect = $('#sort_order');
+		
+		    if (selectedOption === 'price') {
+		      sortOrderSelect.empty();
+		      sortOrderSelect.append($('<option>', { value: 'asc', text: 'Price Low to High' }));
+		      sortOrderSelect.append($('<option>', { value: 'desc', text: 'Price High to Low' }));
+		    } else if (selectedOption === 'date_added') {
+		      sortOrderSelect.empty();
+		      sortOrderSelect.append($('<option>', { value: 'asc', text: 'Oldest First' }));
+		      sortOrderSelect.append($('<option>', { value: 'desc', text: 'Newest First' }));
+		    }
+		  });
+		});
+	</script>
 </head>
 <div class="container">
-  <div class="masthead" style="background-image: url('https://picsum.photos/id/466/1920/1080?grayscale&blur=10'); background-size: cover; padding-top: 15rem; padding-bottom: 15rem;">
-    <div class="container d-flex align-items-center flex-column">
-        <h1 class="text-white">Welcome to FlyBoredom</h1>
-        <p class="lead text-white">Unleash your inner superhero and fly above water with FlyBoredom - Where adrenaline meets aquatic adventure!</p>
-        <form method="get" action="{% url 'search_results' %}">
-          <div class="row">
-            <div class="col">
-                <input class="form-control form-control-lg" id="search" name="search" type="text" placeholder="Search for your location"/>
-            </div>
-            <div class="col-auto"><button class="btn btn-primary btn-lg" id="submitButton" type="submit">Search</button></div>
-          </div>
-        </form>
-    </div>
-  </div>
-<br>
-<br><br>
-<form method="get" class="form-inline">
-  <div class="form-group mx-sm-3 mb-2">
-    <label for="location" class="sr-only">Location</label>
-    <select name="location" id="location" class="form-control">
-      <option value="">Select Location</option>
-      {% for loc in locations %}
-      <option value="{{ loc }}">{{ loc }}</option>
-      {% endfor %}
-    </select>
-  </div>
-
-  <div class="form-group mx-sm-3 mb-2">
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" name="sort_by" id="price_sort" value="price" {% if current_sort_by == 'price' %}checked{% endif %}>
-      <label class="form-check-label" for="price_sort">Sort by Price</label>
-    </div>
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" name="sort_by" id="date_added_sort" value="date_added" {% if current_sort_by == 'date_added' %}checked{% endif %}>
-      <label class="form-check-label" for="date_added_sort">Sort by Date Added</label>
-    </div>
-  </div>
-
-  <div class="form-group mx-sm-3 mb-2" id="sort_order_container">
-    <label for="sort_order" class="sr-only">Sort Order</label>
-    <select name="sort_order" id="sort_order" class="form-control">
-      {% if current_sort_by == 'price' %}
-      <option value="asc" {% if current_sort_order == 'asc' %}selected{% endif %}>Price Low to High</option>
-      <option value="desc" {% if current_sort_order == 'desc' %}selected{% endif %}>Price High to Low</option>
-      {% elif current_sort_by == 'date_added' %}
-      <option value="asc" {% if current_sort_order == 'asc' %}selected{% endif %}>Oldest First</option>
-      <option value="desc" {% if current_sort_order == 'desc' %}selected{% endif %}>Newest First</option>
-      {% endif %}
-    </select>
-  </div>
-
-  <button type="submit" class="btn btn-primary mb-2">Filter</button>
-</form>
-
-
-  <div class="row">
-    {% for offer in latest_offers %}
-    <div class="col-md-4" style="margin-top: 50px;">
-      <a href="{% url 'offer_detail' pk=offer.pk %}" style="text-decoration: none; color: inherit">
-        <div class="card mb-4 box-shadow">
-          {% if offer.image %}
-          <img class="card-img-top" src="{{ offer.image.url }}" alt="{{ offer.offer }}">
-          {% endif %}
-          <div class="card-body">
-            <h4>{{ offer.offer }}</h4>
-            <ul class="list-unstyled">
-              <li><strong>Location:</strong> {{ offer.location }}</li>
-              <li><strong>Price per person:</strong> ${{ offer.price }}</li>
-            </ul>
-            <div class="d-flex justify-content-between align-items-center">
-            </div>
-          </div>
-        </div>
-      </a>
-    </div>
-    {% endfor %}
-  </div>
+	<div class="masthead" style="background-image: url('https://picsum.photos/id/466/1920/1080?grayscale&blur=10'); background-size: cover; padding-top: 15rem; padding-bottom: 15rem;">
+		<div class="container d-flex align-items-center flex-column">
+			<h1 class="text-white">Welcome to FlyBoredom</h1>
+			<p class="lead text-white">Unleash your inner superhero and fly above water with FlyBoredom - Where adrenaline meets aquatic adventure!</p>
+			<form method="get" action="{% url 'search_results' %}">
+				<div class="row">
+					<div class="col">
+						<input class="form-control form-control-lg" id="search" name="search" type="text" placeholder="Search for your location"/>
+					</div>
+					<div class="col-auto"><button class="btn btn-primary btn-lg" id="submitButton" type="submit">Search</button></div>
+				</div>
+			</form>
+		</div>
+	</div>
+	{% if offers %}
+		<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+			Sort and filter
+		</button>
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<form method="get" class="form-inline">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Sort and Filter</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							{% if locations %}
+								<div class="form-group mx-sm-3 mb-2">
+									<label for="location" class="sr-only">Location</label>
+									<select name="location" id="location" class="form-control">
+										<option value="">Select Location</option>
+										{% for loc in locations %}
+										<option value="{{ loc }}">{{ loc }}</option>
+										{% endfor %}
+									</select>
+								</div>
+							{% endif %}
+							<div class="form-group mx-sm-3 mb-2">
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="sort_by" id="price_sort" value="price" {% if current_sort_by == 'price' %}checked{% endif %}>
+									<label class="form-check-label" for="price_sort">Sort by Price</label>
+								</div>
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="sort_by" id="date_added_sort" value="date_added" {% if current_sort_by == 'date_added' %}checked{% endif %}>
+									<label class="form-check-label" for="date_added_sort">Sort by Date Added</label>
+								</div>
+							</div>
+							<div class="form-group mx-sm-3 mb-2" id="sort_order_container">
+								<label for="sort_order" class="sr-only">Sort Order</label>
+								<select name="sort_order" id="sort_order" class="form-control">
+									<option value="asc" {% if current_sort_order == 'asc' %}selected{% endif %}>
+										{% if current_sort_by == 'price' %}
+											Price Low to High
+										{% else %}
+											Oldest First
+										{% endif %}
+									</option>
+									<option value="desc" {% if current_sort_order == 'desc' %}selected{% endif %}>
+										{% if current_sort_by == 'price' %}
+											Price High to Low
+										{% else %}
+											Newest First
+										{% endif %}
+									</option>
+								</select>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-primary">Filter</button>
+						</div>
+				</form>
+				</div>
+			</div>
+		</div>
+		<!-- End modal -->
+		<div class="row">
+			{% for offer in latest_offers %}
+			<div class="col-md-4" style="margin-top: 50px;">
+				<a href="{% url 'offer_detail' pk=offer.pk %}" style="text-decoration: none; color: inherit">
+					<div class="card mb-4 box-shadow">
+						{% if offer.image %}
+						<img class="card-img-top" src="{{ offer.image.url }}" alt="{{ offer.offer }}">
+						{% endif %}
+						<div class="card-body">
+							<h4>{{ offer.offer }}</h4>
+							<ul class="list-unstyled">
+								<li><strong>Location:</strong> {{ offer.location }}</li>
+								<li><strong>Price per person:</strong> ${{ offer.price }}</li>
+							</ul>
+							<div class="d-flex justify-content-between align-items-center">
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+			{% endfor %}
+		</div>
+	{% else %}
+		<div class="d-flex align-items-center justify-content-center" style="background-image: url('https://img.freepik.com/free-photo/portrait-young-female-with-freckles-wears-striped-longsleeve-looking-front-with-displeasure-being-moody_295783-1571.jpg?w=1060&t=st=1679872164~exp=1679872764~hmac=3176ddc0c93a6371f79267c1730fd4a9c41c238a7a79613c6282412c3e472c4e'); background-size: cover; height: 100vh;">
+			<div class="text-center text-white bg-dark p-5" style="opacity: 0.8;">
+				<h1>Welp! This is embarrassing.</h1>
+				<p>We don't have any offers to show you right now. Check back later.</p>
+			</div>
+		</div>
+	{% endif %}
 </div>
 {% endblock %}

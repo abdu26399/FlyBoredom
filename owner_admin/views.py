@@ -8,7 +8,7 @@ from owner_admin.models import Offers
 from owner_admin.forms import AddOrEditOfferForm
 
 
-redirect_url = 'testimonials:list-testimonials'
+redirect_url = '/'
 
 
 @user_passes_test(lambda u: u.is_staff, login_url=redirect_url)

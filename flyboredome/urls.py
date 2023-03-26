@@ -24,10 +24,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('testimonials/', include('testimonials.urls')),
     path('owner/', include('owner_admin.urls')),
-    path('', views.home, name="home"),
-    path('signup', views.signup, name="signup"),
-    path('signin', views.signin, name="signin"),
-    path('signout', views.signout, name="signout"),
+    path('cart/', include('cart.urls')),
+    path('auth/', include('authentication.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

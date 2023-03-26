@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     # Modules
     'testimonials.apps.TestimonialsConfig',
     'owner_admin.apps.OwnerAdminConfig',
+    'cart'
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'

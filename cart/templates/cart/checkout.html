@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load filters %}
+{% block content %}
+<div class="container py-5">
+	<h1 class="text-center mb-4">Checkout</h1>
+	<div class="row">
+		<div class="col-md-8 offset-md-2">
+			<form method="post">
+				{% csrf_token %}
+				{% for item in cart_items %}
+				<div class="accordion mb-4" id="accordion-{{ item.id }}">
+					<div class="accordion-item">
+						<h2 class="accordion-header" id="heading-{{ item.id }}">
+							<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ item.id }}" aria-expanded="true" aria-controls="collapse-{{ item.id }}">
+							{{ item.offer.offer }} for {{item.number_of_people}} {% if item.number_of_people == 1 %}person{% else %}people{% endif %}
+							</button>
+						</h2>
+						<div id="collapse-{{ item.id }}" class="accordion-collapse collapse show" aria-labelledby="heading-{{ item.id }}" data-bs-parent="#accordion-{{ item.id }}">
+							<div class="accordion-body">
+								{% for i in item.number_of_people|range %}
+								<h2 class="card-title mb-0">Participant {{ forloop.counter }}</h2>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group mb-3">
+											<label for="first_name_{{ item.id }}_{{ i }}">First Name</label>
+											<input required type="text" maxlength="100" class="form-control" id="first_name_{{ item.id }}_{{ i }}" name="first_name_{{ item.id }}_{{ i }}">
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group mb-3">
+											<label for="last_name_{{ item.id }}_{{ i }}">Last Name</label>
+											<input required type="text" maxlength="100" class="form-control" id="last_name_{{ item.id }}_{{ i }}" name="last_name_{{ item.id }}_{{ i }}">
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group mb-3">
+											<label for="email_{{ item.id }}_{{ i }}">Email</label>
+											<input required type="email" class="form-control" id="email_{{ item.id }}_{{ i }}" name="email_{{ item.id }}_{{ i }}">
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group mb-3">
+											<label for="phone_{{ item.id }}_{{ i }}">Phone Number</label>
+											<input required type="tel" maxlength="20" class="form-control" id="phone_{{ item.id }}_{{ i }}" name="phone_{{ item.id }}_{{ i }}">
+										</div>
+									</div>
+								</div>
+								{% endfor %}
+							</div>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+				<div class="row">
+					<div class="col-md-6 mb-3">
+						<label for="currency" class="form-label">Currency</label>
+						<select class="form-select" name="currency" id="currency">
+							<option value="CAD" selected>CAD - Canadian Dollar</option>
+							<option value="USD">USD - US Dollar</option>
+							<option value="EUR">EUR - Euro</option>
+						</select>
+					</div>
+					<div class="col-md-6 mb-3">
+						<label for="total" class="form-label">Total</label>
+						<input type="text" class="form-control" id="total" name="total" value="{{ total_cost }}" readonly>
+					</div>
+				</div>
+				<button type="submit" class="btn btn-primary">Submit Order</button>
+			</form>
+		</div>
+	</div>
+</div>
+<script>
+	const currencySelect = document.getElementById("currency");
+	// add an event listener for when the select element changes
+	currencySelect.addEventListener("change", function(event) {
+	  // get the selected currency
+	  const selectedCurrency = event.target.value;
+	  const conversionRates = JSON.parse('{{conversion_rates|escapejs}}');
+	  // get the actual total
+	  const actualTotal = parseFloat('{{total_cost}}');
+	  // get the conversion rate for the selected currency
+	  const conversionRate = conversionRates[selectedCurrency];
+	  // calculate the converted total
+	  const convertedTotal = (actualTotal * conversionRate).toFixed(2);
+	  // set the value of the total input to the converted total
+	  document.getElementById("total").value = convertedTotal;
+	});
+</script>
+{% endblock %}

@@ -25,11 +25,13 @@ class BookingItemInline(admin.TabularInline):
     model = BookingItem
     fields=('offer', 'number_of_people')
     show_change_link = True
-    inlines = [BookingParticipantInline,]
+    
 
 
 class BookingItemAdmin(admin.ModelAdmin):
     model = BookingItem
+    inlines = [BookingParticipantInline,]
+    can_delete = False
 
 
 class BookingAdmin(admin.ModelAdmin):

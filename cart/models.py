@@ -63,7 +63,7 @@ class Booking(models.Model):
     total_cost = models.DecimalField(max_digits=8, decimal_places=2, validators=[MinValueValidator(0)])
     
     def __str__(self):
-        return f"{self.user.username}'s booking for {self.booking_date}"
+        return f"{self.user.username}'s booking for {self.date_created}"
     
 class BookingItem(OfferItem):
     booking = models.ForeignKey(Booking, on_delete=models.CASCADE)

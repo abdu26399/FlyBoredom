@@ -1,5 +1,5 @@
 import json
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.validators import validate_email
@@ -23,9 +23,9 @@ def view_cart(request):
 @login_required
 def add_to_cart(request, offer_id):
     offer = Offers.objects.get(id=offer_id)
-    number_of_people = int(request.POST.get('quantity', 1))
+    number_of_people = int(request.POST.get('number_of_people', 1))
     if number_of_people <= 0:
-        messages.error(request, 'Invalid quantity.')
+        messages.error(request, 'Invalid number of people.')
         return redirect('view_cart')
     cart = Cart.objects.filter(user=request.user).first()
     if not cart:
@@ -47,6 +47,19 @@ def remove_from_cart(request, cart_item_id):
     cart_item.delete()
     messages.success(request, f"{cart_item.offer.offer} offer removed from cart.")
     return redirect('view_cart')
+
+@login_required
+def update_number_of_people(request, cart_item_id):
+    cart_item = get_object_or_404(CartItem, id=cart_item_id, cart__user=request.user)
+    if request.method == 'POST':
+        number_of_people = int(request.POST.get(f'number_of_people_{cart_item_id}', 0))
+        if number_of_people > 0:
+            cart_item.number_of_people = number_of_people
+            cart_item.save()
+            messages.success(request, f'Number of people for {cart_item.offer.offer} updated to {number_of_people}.')
+        else:
+            messages.warning(request, f'Number_of_people must be greater than 0 for {cart_item.offer.offer}.')
+        return redirect('view_cart')
 
 @login_required
 def checkout(request):

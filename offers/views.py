@@ -5,7 +5,6 @@ from owner_admin.models import Offers
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 
-
 class HomeView(ListView):
     model = Offers
     context_object_name = 'latest_offers'
@@ -42,7 +41,7 @@ class HomeView(ListView):
         context = super().get_context_data(**kwargs)
 
         # Add location filter options
-        context['locations'] = set(offer.location for offer in context['latest_offers'])
+        context['locations'] = set(offer.location for offer in Offers.objects.all())
 
         # Add current filter values to context
         context['current_location'] = self.request.GET.get('location')

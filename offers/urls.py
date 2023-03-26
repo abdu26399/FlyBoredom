@@ -1,5 +1,6 @@
 from django.urls import path, reverse_lazy
 from .views import HomeView, OfferDetailView, SearchView
+from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),

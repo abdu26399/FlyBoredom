@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+<div class="container">
   <div class="row">
     {% for offer in latest_offers %}
     <div class="col-md-4" style="margin-top: 50px;">
@@ -30,4 +31,5 @@
     <a href="{% url 'home' %}" class="btn btn-primary">Go Back</a>
   </div>
   </div>
+</div>
 {% endblock %}

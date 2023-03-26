@@ -24,14 +24,23 @@ $(document).ready(function() {
 </script>
 
 </head>
-<br>
-<form method="get" action="{% url 'search_results' %}">
-  <div class="form-group mx-sm-3 mb-2">
-    <input type="text" name="search" id="search" class="form-control" placeholder="Search by location">
+<div class="container">
+  <div class="masthead" style="background-image: url('https://picsum.photos/id/466/1920/1080?grayscale&blur=10'); background-size: cover; padding-top: 15rem; padding-bottom: 15rem;">
+    <div class="container d-flex align-items-center flex-column">
+        <h1 class="text-white">Welcome to FlyBoredom</h1>
+        <p class="lead text-white">Unleash your inner superhero and fly above water with FlyBoredom - Where adrenaline meets aquatic adventure!</p>
+        <form method="get" action="{% url 'search_results' %}">
+          <div class="row">
+            <div class="col">
+                <input class="form-control form-control-lg" id="search" name="search" type="text" placeholder="Search for your location"/>
+            </div>
+            <div class="col-auto"><button class="btn btn-primary btn-lg" id="submitButton" type="submit">Search</button></div>
+          </div>
+        </form>
+    </div>
   </div>
-  <button type="submit" class="btn btn-primary mb-2">Search</button>
-</form>
-    <br><br>
+<br>
+<br><br>
 <form method="get" class="form-inline">
   <div class="form-group mx-sm-3 mb-2">
     <label for="location" class="sr-only">Location</label>
@@ -93,4 +102,5 @@ $(document).ready(function() {
     </div>
     {% endfor %}
   </div>
+</div>
 {% endblock %}

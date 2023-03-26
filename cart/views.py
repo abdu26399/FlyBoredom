@@ -23,24 +23,22 @@ def view_cart(request):
 @login_required
 def add_to_cart(request, offer_id):
     offer = Offers.objects.get(id=offer_id)
-    if request.method == 'POST':
-        number_of_people = int(request.POST.get('quantity', 0))
-        if number_of_people <= 0:
-            messages.error(request, 'Invalid quantity.')
-            return redirect('view_cart')
-        cart = Cart.objects.filter(user=request.user).first()
-        if not cart:
-            cart = Cart(user=request.user)
-            cart.save()
-        cart_item, created = CartItem.objects.get_or_create(cart=cart, offer=offer)
-        if not created:
-            cart_item.number_of_people += number_of_people
-            cart_item.save()
-        else:
-            cart_item.number_of_people = number_of_people
-            cart_item.save()
-        messages.success(request, f"{offer.offer} offer added to cart.")
+    number_of_people = int(request.POST.get('quantity', 1))
+    if number_of_people <= 0:
+        messages.error(request, 'Invalid quantity.')
         return redirect('view_cart')
+    cart = Cart.objects.filter(user=request.user).first()
+    if not cart:
+        cart = Cart(user=request.user)
+        cart.save()
+    cart_item, created = CartItem.objects.get_or_create(cart=cart, offer=offer)
+    if not created:
+        cart_item.number_of_people += number_of_people
+        cart_item.save()
+    else:
+        cart_item.number_of_people = number_of_people
+        cart_item.save()
+    messages.success(request, f"{offer.offer} offer added to cart.")
     return redirect('view_cart')
 
 @login_required

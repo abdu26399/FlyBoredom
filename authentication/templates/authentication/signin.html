@@ -7,7 +7,6 @@
         body {
             background-image: url('https://picsum.photos/1920/1080');
             background-size: cover;
-            background-position: center;
             font-family: Arial, sans-serif;
         }
 
@@ -61,14 +60,14 @@
 
         <h3>Sign In</h3>
 
-        <form action="/signin" method="post">
+        <form action="{% url 'signin' %}" method="post">
             {% csrf_token %}
 
             <label for="username">Username</label>
             <input type="text" id="username" name="username" placeholder="Enter your username" required>
 
-            <label for="pwd1">Password</label>
-            <input type="password" id="pwd1" name="pwd1" placeholder="Enter your password" required>
+            <label for="pwd">Password</label>
+            <input type="password" id="pwd" name="pwd" placeholder="Enter your password" required>
 
             <button type="submit">Sign In</button>
         </form>

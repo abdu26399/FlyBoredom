@@ -39,11 +39,13 @@ INSTALLED_APPS = [
 
     # 3rd party
     'crispy_forms',
+    'crispy_forms.bootstrap',
     'crispy_bootstrap5',
 
     # Modules
     'testimonials.apps.TestimonialsConfig',
     'owner_admin.apps.OwnerAdminConfig',
+    'offers.apps.OffersConfig',
     'cart'
 ]
 
@@ -131,3 +133,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
+
+LOGIN_URL = "/auth/signin"

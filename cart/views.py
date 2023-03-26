@@ -1,6 +1,6 @@
 import json
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
@@ -9,7 +9,11 @@ from decimal import Decimal
 from .models import Cart, CartItem
 from owner_admin.models import Offers
 
-@login_required
+
+redirect_url = 'testimonials:list-testimonials'
+
+
+@user_passes_test(lambda u: u.is_authenticated, login_url=redirect_url)
 def view_cart(request):
     cart = Cart.objects.filter(user=request.user).first()
     if not cart:
@@ -20,7 +24,8 @@ def view_cart(request):
     context = {'cart_items': cart_items, 'total_cost': total_cost}
     return render(request, 'cart/view_cart.html', context)
 
-@login_required
+
+@user_passes_test(lambda u: u.is_authenticated, login_url=redirect_url)
 def add_to_cart(request, offer_id):
     offer = Offers.objects.get(id=offer_id)
     number_of_people = int(request.POST.get('quantity', 1))
@@ -41,14 +46,16 @@ def add_to_cart(request, offer_id):
     messages.success(request, f"{offer.offer} offer added to cart.")
     return redirect('view_cart')
 
-@login_required
+
+@user_passes_test(lambda u: u.is_authenticated, login_url=redirect_url)
 def remove_from_cart(request, cart_item_id):
     cart_item = CartItem.objects.get(id=cart_item_id)
     cart_item.delete()
     messages.success(request, f"{cart_item.offer.offer} offer removed from cart.")
     return redirect('view_cart')
 
-@login_required
+
+@user_passes_test(lambda u: u.is_authenticated, login_url=redirect_url)
 def checkout(request):
     try:
         cart = Cart.objects.filter(user=request.user).first()

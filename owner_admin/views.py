@@ -8,7 +8,10 @@ from owner_admin.models import Offers
 from owner_admin.forms import AddOrEditOfferForm
 
 
-@user_passes_test(lambda u: u.is_staff, login_url='testimonials:list-testimonials')
+redirect_url = 'testimonials:list-testimonials'
+
+
+@user_passes_test(lambda u: u.is_staff, login_url=redirect_url)
 def index(request):
     latest_offers = Offers.objects.order_by('-date_added')
     latest_testimonials = Testimonial.objects.order_by('-date_added')
@@ -16,21 +19,21 @@ def index(request):
                                                       'latest_offers': latest_offers})
 
 
-@user_passes_test(lambda u: u.is_staff, login_url='testimonials:list-testimonials')
+@user_passes_test(lambda u: u.is_staff, login_url=redirect_url)
 def delete_testimonial(request, testimonial_id):
     testimonial = Testimonial.objects.get(id=testimonial_id)
     testimonial.delete()
     return HttpResponseRedirect(reverse('owner_admin:admin_home'))
 
 
-@user_passes_test(lambda u: u.is_staff, login_url='testimonials:list-testimonials')
+@user_passes_test(lambda u: u.is_staff, login_url=redirect_url)
 def delete_offer(request, offer_id):
     offer = Offers.objects.get(id=offer_id)
     offer.delete()
     return HttpResponseRedirect(reverse('owner_admin:admin_home'))
 
 
-@user_passes_test(lambda u: u.is_staff, login_url='testimonials:list-testimonials')
+@user_passes_test(lambda u: u.is_staff, login_url=redirect_url)
 def add_or_edit_offer(request, offer_id=None):
     if offer_id:
         offer = Offers.objects.get(id=offer_id)

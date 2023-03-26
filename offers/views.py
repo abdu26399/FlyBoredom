@@ -7,6 +7,7 @@ from owner_admin.models import Offers
 from django.views.generic import ListView, View
 from django.views.generic.detail import DetailView
 from django.db.models import Q
+from django.urls import reverse_lazy
 
 
 class HomeView(ListView):
@@ -23,20 +24,20 @@ class HomeView(ListView):
         if location_filter:
             queryset = queryset.filter(location=location_filter)
 
-        # Filter by price
-        price_filter = self.request.GET.get('price')
-        if price_filter:
-            if price_filter == 'asc':
+        # Sort by price
+        sort_by = self.request.GET.get('sort_by')
+        sort_order = self.request.GET.get('sort_order')
+        if sort_by == 'price':
+            if sort_order == 'asc':
                 queryset = queryset.order_by('price')
-            elif price_filter == 'dsc':
+            elif sort_order == 'desc':
                 queryset = queryset.order_by('-price')
 
-        # Filter by date added
-        date_filter = self.request.GET.get('date_added')
-        if date_filter:
-            if date_filter == 'asc':
+        # Sort by date added
+        elif sort_by == 'date_added':
+            if sort_order == 'asc':
                 queryset = queryset.order_by('date_added')
-            elif date_filter == 'dsc':
+            elif sort_order == 'desc':
                 queryset = queryset.order_by('-date_added')
 
         return queryset
@@ -49,10 +50,9 @@ class HomeView(ListView):
 
         # Add current filter values to context
         context['current_location'] = self.request.GET.get('location')
-        context['current_price'] = self.request.GET.get('price')
-        context['current_date_added'] = self.request.GET.get('date_added')
+        context['current_sort_by'] = self.request.GET.get('sort_by')
+        context['current_sort_order'] = self.request.GET.get('sort_order')
         return context
-
 
 
 class OfferDetailView(DetailView):
@@ -61,15 +61,25 @@ class OfferDetailView(DetailView):
     template_name = 'offers/offer_detail.html'
 
 
-# class OfferSearchView(FormView):
-#     template_name = 'offers/search_results.html'
-#     form_class = OfferSearchForm
-#
-#     def form_valid(self, form):
-#         search_query = form.cleaned_data.get('search_query')
-#         results = Offers.objects.filter(Q(offer__icontains=search_query) | Q(location__icontains=search_query))
-#         context = {'results': results}
-#         return self.render_to_response(context)
-#
-#     def form_invalid(self, form):
-#         return JsonResponse({'error': 'Invalid form submission.'})
+class SearchView(ListView):
+    model = Offers
+    context_object_name = 'latest_offers'
+    template_name = 'offers/search_results.html'
+    queryset = Offers.objects.all().order_by('-date_added')
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        # Filter by search term
+        search_term = self.request.GET.get('search')
+        if search_term:
+            # Check if search term matches location
+            queryset = queryset.filter(location__icontains=search_term)
+            #
+            # # Check if search term matches name
+            # name_matches = queryset.filter(offer__icontains=search_term)
+            # if len(name_matches) >= 3:
+            #     queryset = name_matches
+
+        return queryset
+

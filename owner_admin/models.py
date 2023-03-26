@@ -8,8 +8,7 @@ class Offers(models.Model):
     offer = models.CharField(max_length=100)
     description = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
-    from_date = models.DateTimeField()
-    to_date = models.DateTimeField()
+    date = models.DateTimeField()
     image = models.ImageField(upload_to='images/', blank=True, null=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     spots_available = models.PositiveIntegerField(default=0)
@@ -24,11 +23,11 @@ class Offers(models.Model):
     def status(self):
         if self.spots_available == 0:
             return 'Sold Out'
-        elif self.from_date > timezone.now():
+        elif self.date > timezone.now():
             return 'Coming Soon'
-        elif self.from_date <= timezone.now() <= self.to_date:
+        elif self.date <= timezone.now():
             return 'Available'
-        elif self.to_date < timezone.now():
+        elif self.date < timezone.now():
             return 'Expired'
 
     class Meta:

@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-5">Your Cart</h1>
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% if cart_items %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Offer</th>
+                <th scope="col">Price</th>
+                <th scope="col">Number of people</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cart_item in cart_items %}
+            <form method="POST" action="{% url 'update_number_of_people' cart_item.id %}">
+                {% csrf_token %}
+                <tr>
+                    <td><div class="container">{{ cart_item.offer.offer }}</div></td>
+                    <td><div class="container">{{ cart_item.offer.price }}</div></td>
+                    <td>
+                        <div class="input-group input-group-sm">
+                            <input type="number" class="form-control-sm" onchange="checkPeopleChange(event, '{{cart_item.number_of_people}}')" class="form-control" name="number_of_people_{{cart_item.id}}" id="number_of_people_{{cart_item.id}}" value="{{ cart_item.number_of_people }}">
+                            <button disabled id="change_number_of_people_{{cart_item.id}}" type="submit" class="btn btn-outline-secondary">Update</button>
+                        </div>
+                    </td>
+                    <td>
+                        <a href="{% url 'remove_from_cart' cart_item.id %}" class="btn btn-danger btn-sm">Remove</a>
+                    </td>
+                </tr>
+            </form>
+            {% endfor %}
+            <tr>
+                <td></td>
+                <td></td>
+                <th scope="row">Total</th>
+                <td>{{ total_cost }}</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="{% url 'checkout' %}" class="btn btn-success float-end">Checkout</a>
+    {% else %}
+    <p>Your cart is empty.</p>
+    {% endif %}
+	<script>
+		function checkPeopleChange(event, oldQuantity){
+			const newQuantity = event.target.value;
+			const elem = document.getElementById("change_"+event.target.name);
+			if(newQuantity === oldQuantity){
+				elem.disabled = true;
+			}else{
+				elem.disabled = false;
+			}
+		}
+	</script>
+</div>
+{% endblock %}

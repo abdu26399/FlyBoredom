@@ -6,17 +6,18 @@ from django.views.generic import CreateView
 from django.views.generic.list import ListView
 from django.urls import reverse
 
+
 class TestimonialListView(ListView):
     model = Testimonial
     template_name = 'testimonials/list_testimonials.html'
 
-#LoginRequiredMixin
+
+# LoginRequiredMixin
 class CreateTestimonialView(CreateView):
     'View to create testimonials'
     model = Testimonial
     template_name = 'testimonials/testimonial_form.html'
     fields = '__all__'
-
 
     def form_valid(self, form):
         instance = form.save()
@@ -25,7 +26,6 @@ class CreateTestimonialView(CreateView):
             Photos.objects.create(testimonial=instance, photo=image)
 
         return super(CreateTestimonialView, self).form_valid(form)
-        
 
     def get_success_url(self):
-        return reverse('list-testimonials')
+        return reverse('testimonials:list-testimonials')

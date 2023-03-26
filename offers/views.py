@@ -1,13 +1,9 @@
-from django.http import JsonResponse
-from django.views.generic.edit import FormMixin, FormView
-
-# from .forms import OfferSearchForm
-# from .models import BackgroundImage
+from django.contrib import messages
+from django.db import transaction
+from django.shortcuts import redirect
 from owner_admin.models import Offers
-from django.views.generic import ListView, View
+from django.views.generic import ListView
 from django.views.generic.detail import DetailView
-from django.db.models import Q
-from django.urls import reverse_lazy
 
 
 class HomeView(ListView):
@@ -60,6 +56,34 @@ class OfferDetailView(DetailView):
     context_object_name = 'offer'
     template_name = 'offers/offer_detail.html'
 
+    # def post(self, request, *args, **kwargs):
+    #     offer = self.get_object()
+    #     quantity = int(request.POST.get('quantity', '1'))
+    #
+    #     if quantity <= 0:
+    #         messages.error(request, 'Quantity must be greater than zero.')
+    #         return redirect('offers:offer_detail', pk=offer.pk)
+    #
+    #     if quantity > offer.spots_available:
+    #         messages.error(request, 'Not enough spots available.')
+    #         return redirect('offers:offer_detail', pk=offer.pk)
+    #
+    #     with transaction.atomic():
+    #         cart_item, created = CartItems.objects.get_or_create(
+    #             offer=offer,
+    #             user=request.user,
+    #             defaults={'quantity': quantity},
+    #         )
+    #
+    #         if not created:
+    #             cart_item.quantity += quantity
+    #             cart_item.save()
+    #
+    #         offer.spots_available -= quantity
+    #         offer.save()
+    #
+    #     return redirect('offers:offer_detail', pk=offer.pk)
+
 
 class SearchView(ListView):
     model = Offers
@@ -82,4 +106,5 @@ class SearchView(ListView):
             #     queryset = name_matches
 
         return queryset
+
 

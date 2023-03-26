@@ -1,10 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-  <div class="row">
-    <div class="col-md-12 text-center">
-      <h1 class="title" style="font-family: 'Pacifico', cursive; font-size: 72px; color: #333;">FlyBoredom</h1>
-    </div>
-  </div>
+
 <head>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -28,7 +24,7 @@ $(document).ready(function() {
 </script>
 
 </head>
-
+<br>
 <form method="get" action="{% url 'search_results' %}">
   <div class="form-group mx-sm-3 mb-2">
     <input type="text" name="search" id="search" class="form-control" placeholder="Search by location">

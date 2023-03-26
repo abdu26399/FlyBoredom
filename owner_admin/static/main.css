@@ -10,3 +10,9 @@
     top: 0;
     margin: 10px;
 }
+
+.scrollable {
+    overflow-y: scroll;
+    height: 20rem;
+    width: 100%;
+}

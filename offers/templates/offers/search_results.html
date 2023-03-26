@@ -1,0 +1,44 @@
+{#{% extends 'base.html' %}#}
+{##}
+{#{% block content %}#}
+{#<div class="row">#}
+{#  <div class="col-md-12">#}
+{#    <h1 class="title" style="font-family: 'Pacifico', cursive; font-size: 72px; color: #333;">Search Results</h1>#}
+{#  </div>#}
+{#</div>#}
+{##}
+{#{% if results %}#}
+{#  <div class="alert alert-info" role="alert">#}
+{#    Showing results for "{{ form.cleaned_data.search_query }}":#}
+{#  </div>#}
+{##}
+{#  <div class="row">#}
+{#    {% for offer in results %}#}
+{#      <div class="col-md-4" style="margin-top: 50px;">#}
+{#        <a href="{% url 'offer_detail' pk=offer.pk %}" style="text-decoration: none; color: inherit">#}
+{#          <div class="card mb-4 box-shadow">#}
+{#            {% if offer.image %}#}
+{#              <img class="card-img-top" src="{{ offer.image.url }}" alt="{{ offer.offer }}">#}
+{#            {% endif %}#}
+{#            <div class="card-body">#}
+{#              <h4>{{ offer.offer }}</h4>#}
+{#              <ul class="list-unstyled">#}
+{#                <li><strong>Location:</strong> {{ offer.location }}</li>#}
+{#                <li><strong>Price per person:</strong> ${{ offer.price }}</li>#}
+{#              </ul>#}
+{#              <div class="d-flex justify-content-between align-items-center">#}
+{#              </div>#}
+{#            </div>#}
+{#          </div>#}
+{#        </a>#}
+{#      </div>#}
+{#    {% endfor %}#}
+{#  </div>#}
+{##}
+{#{% else %}#}
+{#  <div class="alert alert-info" role="alert">#}
+{#    No offers found for the search term "{{ form.cleaned_data.search_query }}".#}
+{#  </div>#}
+{#{% endif %}#}
+{##}
+{#{% endblock %}#}

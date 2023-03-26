@@ -1,31 +1,64 @@
-{% extends 'base.html' %}\
+{% extends 'base.html' %}
 
 {% block content %}
- <div class="row">
-  <div class="col-md-12 text-center">
-    <h1 class="title" style="font-family: 'Pacifico', cursive; font-size: 72px; color: #333;">FlyBoredom</h1>
-  </div>
- </div>
-<div class="row">
-  {% for offer in latest_offers %}
-  <div class="col-md-4" style="margin-top: 50px;">
-  <a href="{% url 'offer_detail' pk=offer.pk %}"  style="text-decoration: none; color: inherit">
-    <div class="card mb-4 box-shadow">
-      {% if offer.image %}
-        <img class="card-img-top" src="{{ offer.image.url }}" alt="{{ offer.offer }}">
-      {% endif %}
-      <div class="card-body">
-        <h4>{{ offer.offer }}</h4>
-        <ul class="list-unstyled">
-          <li><strong>Location:</strong> {{ offer.location }}</li>
-          <li><strong>Price per person:</strong> ${{ offer.price }}</li>
-        </ul>
-        <div class="d-flex justify-content-between align-items-center">
-        </div>
-      </div>
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <h1 class="title" style="font-family: 'Pacifico', cursive; font-size: 72px; color: #333;">FlyBoredom</h1>
     </div>
-  </a>
   </div>
-  {% endfor %}
-</div>
+
+  <form method="get" class="form-inline">
+    <div class="form-group mx-sm-3 mb-2">
+      <label for="location" class="sr-only">Location</label>
+      <select name="location" id="location" class="form-control">
+        <option value="">Select Location</option>
+        {% for loc in locations %}
+        <option value="{{ loc }}">{{ loc }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="form-group mx-sm-3 mb-2">
+      <label for="price" class="sr-only">Price</label>
+      <select name="price" id="price" class="form-control">
+        <option value="">Select Price</option>
+        <option value="asc">Price Low to High</option>
+        <option value="desc">Price High to Low</option>
+      </select>
+    </div>
+
+    <div class="form-group mx-sm-3 mb-2">
+      <label for="date_added" class="sr-only">Date Added</label>
+      <select name="date_added" id="date_added" class="form-control">
+        <option value="">Select Date Added</option>
+        <option value="asc">Oldest First</option>
+        <option value="desc">Newest First</option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary mb-2">Filter</button>
+  </form>
+
+  <div class="row">
+    {% for offer in latest_offers %}
+    <div class="col-md-4" style="margin-top: 50px;">
+      <a href="{% url 'offer_detail' pk=offer.pk %}" style="text-decoration: none; color: inherit">
+        <div class="card mb-4 box-shadow">
+          {% if offer.image %}
+          <img class="card-img-top" src="{{ offer.image.url }}" alt="{{ offer.offer }}">
+          {% endif %}
+          <div class="card-body">
+            <h4>{{ offer.offer }}</h4>
+            <ul class="list-unstyled">
+              <li><strong>Location:</strong> {{ offer.location }}</li>
+              <li><strong>Price per person:</strong> ${{ offer.price }}</li>
+            </ul>
+            <div class="d-flex justify-content-between align-items-center">
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
 {% endblock %}

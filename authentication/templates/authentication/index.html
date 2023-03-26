@@ -52,15 +52,15 @@
         {% if user.is_authenticated %}
             <!-- Display a welcome message and sign-out button if the user is authenticated -->
         <h3>Hello {{ firstname }}</h3>
-        <h4>You have successfully logged in </h4>
+        <h4>You are successfully logged in </h4>
         <div class="btn-group">
-            <button type="submit" class="btn btn-primary"> <a href="/signout" style="color:white;">SignOut</a></button>
+            <button type="submit" class="btn btn-primary"> <a href="{% url 'signout' %}" style="color:white;">SignOut</a></button>
         </div>
         {% else %}
             <!-- Display sign-up and sign-in buttons if the user is not authenticated -->
         <div class="btn-group">
-            <button type="submit" class="btn btn-primary"> <a href="/signup" style="color:white;">SignUp</a></button>
-            <button type="submit" class="btn btn-primary"> <a href="/signin" style="color:white;">SignIn</a></button>
+            <button type="submit" class="btn btn-primary"> <a href="{% url 'signup' %}" style="color:white;">SignUp</a></button>
+            <button type="submit" class="btn btn-primary"> <a href="{% url 'signin' %}" style="color:white;">SignIn</a></button>
         </div>
         {% endif %}
     </div>

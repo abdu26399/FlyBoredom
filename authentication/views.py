@@ -45,14 +45,14 @@ def signin(request):
     if request.method == 'POST':
         # Get the form data
         username = request.POST['username']
-        pwd1 = request.POST['pwd1']
+        pwd1 = request.POST['pwd']
 
         # Authenticate the user using the entered credentials
         user = authenticate(username=username, password=pwd1)
 
         # If the user is authenticated, log them in and redirect to the index page with their name displayed
         if user is not None:
-            login(request,user)
+            login(request, user)
             firstname = user.first_name
             return render(request, "authentication/index.html", {'firstname': firstname})
 

@@ -31,8 +31,10 @@ testimonial list
             <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
              <div class="carousel-item active">
-                <img src="{{testimonial.photos.all.0.photo.url}}" class="card-img-top" width="200" height="200" alt="...">
-             </div> 
+                 {% if testimonial.photos.all.0.photo.url %}
+                     <img src="{{testimonial.photos.all.0.photo.url}}" class="card-img-top" width="200" height="200" alt="...">
+                 {% endif %}
+             </div>
                {%for photo in testimonial.photos.all%}
                 <div class="carousel-item">
                     <img src="{{photo.photo.url}}" class="card-img-top" width="200" height="200" alt="...">

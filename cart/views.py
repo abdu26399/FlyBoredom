@@ -1,11 +1,10 @@
 import json
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import user_passes_test
 from django.contrib import messages
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 import requests
-from decimal import Decimal
 from .models import Cart, CartItem
 from owner_admin.models import Offers
 

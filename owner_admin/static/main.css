@@ -1,0 +1,34 @@
+.container-header {
+    position: relative;
+    padding: 10px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.container-header .top-right {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 10px;
+}
+
+.scrollable {
+    overflow-y: scroll;
+    width: 100%;
+}
+
+.detail-container {
+    height: 100%;
+    position: relative;
+}
+
+.detail-container .btn-danger {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.detail-container .btn-primary {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}

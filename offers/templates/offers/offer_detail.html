@@ -17,11 +17,11 @@
         <li><strong>Spots available:</strong> {{ offer.spots_available }}</li>
         <li><strong>Status:</strong> {{ offer.status }}</li>
       </ul>
-{#      <form method="post" action="{% url 'offers:add_to_cart' offer.pk %}">#}
-{#        {% csrf_token %}#}
-        <input type="number" name="quantity" min="1" max="{{ offer.spots_available }}" value="1">
+      <form method="post" action="{% url 'cart:add_to_cart' offer.pk %}">
+        {% csrf_token %}
+        <input type="number" name="number_of_people" id="number_of_people" min="1" max="{{ offer.spots_available }}" value="1">
         <button type="submit" class="btn btn-primary">Add to cart</button>
-{#      </form>#}
+      </form>
     </div>
   </div>
 </div>

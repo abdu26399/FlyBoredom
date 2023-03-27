@@ -108,7 +108,17 @@
                                     <th scope="col">Date</th>
                                     <th scope="col">Location</th>
                                 </tr>
-                            </tbody>
+                                </thead>
+                                <tbody>
+                                    {% for booking in bookings_for_upcoming_offers %}
+                                        <tr>
+                                            <td>{{ booking.first_name }}</td>
+                                            <td>{{ booking.last_name }}</td>
+                                            <td>{{ booking.booking_item.offer.date }}</td>
+                                            <td>{{ booking.booking_item.offer.location }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
                         </table>
                     </div>
                 </div>

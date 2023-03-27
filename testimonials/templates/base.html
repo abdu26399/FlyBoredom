@@ -25,7 +25,7 @@
                         {% endif %}
                     </div>
                     <div class="navbar-nav">
-                        <a class="nav-link {% if request.path == '/cart/' %} active {% endif %}" href="{% url 'view_cart' %}">My Cart</a>
+                        <a class="nav-link {% if request.path == '/cart/' %} active {% endif %}" href="{% url 'cart:view_cart' %}">My Cart</a>
                         <a href="{% url 'signout' %}" class="nav-link">Log Out</a>
                     </div>
                 {% else %}

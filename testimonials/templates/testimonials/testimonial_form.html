@@ -4,17 +4,22 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-    <div class="row justify-content-center">
-        <div class="col-sm-6">
-            <div class="card mt-5 card-border">
-                <p>Tell us what you think!
-                <div class="card-body">
-                    <form action="" method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        {{ form|crispy }}
-                        <input type="file" name="images" multiple>
-                        <button>Submit</button>
-                    </form>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-sm-6">
+                <div class="card mt-5 card-border">
+                    <h2 class="m-3">Tell us what you think!</h2>
+                    <div class="card-body">
+                        <form action="" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{ form|crispy }}
+                            <div class="mb-3">
+                                <label for="formFile" class="form-label">Upload an image</label>
+                                <input class="form-control" type="file" name="images">
+                            </div>
+                            <button class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

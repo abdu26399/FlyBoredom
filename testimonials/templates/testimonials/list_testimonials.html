@@ -3,8 +3,14 @@
 
 {% block content %}
     <div class="container py-4">
+        <h2>
+            Testimonial List
+            <a href="{% url 'testimonials:add-testimonial' %}" class="btn btn-primary">
+                <i class="bi bi-plus"></i>
+                Add
+            </a>
+        </h2>
         {% if testimonial_list %}
-            <h2>Testimonial List</h2>
             <div class="row row-cols-1 row-cols-md-4 g-4">
                 {% for testimonial in testimonial_list %}
                     <div class="card p-0 mt-5" style="width: 18rem; margin-right: 2rem;">

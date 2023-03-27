@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.utils import timezone
 
 from testimonials.models import Testimonial
-from cart.models import BookingItem
+from cart.models import BookingParticipant
 from owner_admin.models import Offers
 from owner_admin.forms import AddOrEditOfferForm
 
@@ -16,7 +16,8 @@ redirect_url = '/'
 def index(request):
     latest_offers = Offers.objects.order_by('-date_added')
     latest_testimonials = Testimonial.objects.order_by('-date_added')
-    bookings_for_upcoming_offers = BookingItem.objects.filter(offer__date__gt=timezone.now()).order_by('-date_added')
+    bookings_for_upcoming_offers = BookingParticipant.objects.filter(booking_item__offer__date__gte=timezone.now())\
+        .order_by('booking_item__offer__date')
     return render(request, 'owner_admin/index.html', {'latest_testimonials': latest_testimonials,
                                                       'latest_offers': latest_offers,
                                                       'bookings_for_upcoming_offers': bookings_for_upcoming_offers})

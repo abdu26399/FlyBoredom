@@ -13,6 +13,22 @@
 
 .scrollable {
     overflow-y: scroll;
-    height: 20rem;
     width: 100%;
+}
+
+.detail-container {
+    height: 100%;
+    position: relative;
+}
+
+.detail-container .btn-danger {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.detail-container .btn-primary {
+    position: absolute;
+    bottom: 0;
+    left: 0;
 }

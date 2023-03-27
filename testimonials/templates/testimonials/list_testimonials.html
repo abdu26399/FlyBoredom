@@ -3,13 +3,20 @@
 
 {% block content %}
     <div class="container py-4">
-        <h2>
-            Testimonial List
-            <a href="{% url 'testimonials:add-testimonial' %}" class="btn btn-primary">
-                <i class="bi bi-plus"></i>
-                Add
-            </a>
-        </h2>
+        <div class="row justify-content-between">
+            <div class="col-3">
+                <h2>
+                    Testimonial List
+                </h2>
+            </div>
+            <div class="col-3">
+                <a href="{% url 'testimonials:add-testimonial' %}" class="btn btn-primary">
+                    <i class="bi bi-plus"></i>
+                    Add
+                </a>
+            </div>
+        </div>
+        
         {% if testimonial_list %}
             <div class="row row-cols-1 row-cols-md-4 g-4">
                 {% for testimonial in testimonial_list %}

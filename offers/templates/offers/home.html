@@ -37,9 +37,18 @@
 		</div>
 	</div>
 	{% if latest_offers %}
-		<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-			Sort and filter
-		</button>
+		<div class="row justify-content-between mt-5">
+			<div class="col-3">
+				<h2>
+					Upcoming offers
+				</h2>
+			</div>
+			<div class="col-3">
+				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+					Sort and filter
+				</button>
+			</div>
+		</div>
 		<!-- Modal -->
 		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog">

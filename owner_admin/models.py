@@ -24,9 +24,7 @@ class Offers(models.Model):
         if self.spots_available == 0:
             return 'Sold Out'
         elif self.date > timezone.now():
-            return 'Coming Soon'
-        elif self.date <= timezone.now():
-            return 'Available'
+            return 'Upcoming'
         elif self.date < timezone.now():
             return 'Expired'
 

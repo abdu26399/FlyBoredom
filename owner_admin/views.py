@@ -2,11 +2,12 @@ from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.http import HttpResponseRedirect
+from django.utils import timezone
 
 from testimonials.models import Testimonial
+from cart.models import BookingItem
 from owner_admin.models import Offers
 from owner_admin.forms import AddOrEditOfferForm
-
 
 redirect_url = '/'
 
@@ -15,8 +16,10 @@ redirect_url = '/'
 def index(request):
     latest_offers = Offers.objects.order_by('-date_added')
     latest_testimonials = Testimonial.objects.order_by('-date_added')
+    bookings_for_upcoming_offers = BookingItem.objects.filter(offer__date__gt=timezone.now()).order_by('-date_added')
     return render(request, 'owner_admin/index.html', {'latest_testimonials': latest_testimonials,
-                                                      'latest_offers': latest_offers})
+                                                      'latest_offers': latest_offers,
+                                                      'bookings_for_upcoming_offers': bookings_for_upcoming_offers})
 
 
 @user_passes_test(lambda u: u.is_staff, login_url=redirect_url)

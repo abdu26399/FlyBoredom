@@ -65,7 +65,8 @@
                             margin-top: 0.5rem; margin-bottom: 0.5rem; height: 25rem">
                                 {% if testimonial.photos.all %}
                                     <div style="height: 10rem; overflow: hidden">
-                                        <img src="{{ testimonial.photos.all.0.photo.url }}" class="card-img-top" alt="...">
+                                        <img src="{{ testimonial.photos.all.0.photo.url }}" class="card-img-top"
+                                             alt="...">
                                     </div>
                                 {% endif %}
                                 <div class="card-body">
@@ -88,6 +89,27 @@
                                 </div>
                             </div>
                         {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            {#  Bookings for upcoming events  #}
+            <div class="container border rounded mt-4 p-0" style="overflow: hidden">
+                <div class="container-header">
+                    <h2>Bookings for upcoming events</h2>
+                </div>
+                <div class="row scrollable container m-0 p-0">
+                    <div class="container m-0 p-0">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">First Name</th>
+                                    <th scope="col">Last Name</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Location</th>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

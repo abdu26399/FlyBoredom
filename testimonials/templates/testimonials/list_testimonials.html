@@ -9,12 +9,14 @@
                     Testimonial List
                 </h2>
             </div>
+            {% if user.is_authenticated %}
             <div class="col-3">
                 <a href="{% url 'testimonials:add-testimonial' %}" class="btn btn-primary">
                     <i class="bi bi-plus"></i>
                     Add
                 </a>
             </div>
+            {% endif %}
         </div>
         
         {% if testimonial_list %}

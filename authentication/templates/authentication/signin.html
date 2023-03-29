@@ -1,6 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="w-100 flex-grow-1 d-flex flex-col justify-content-center align-items-center" style="background-image: url('https://picsum.photos/id/349/1920/1080?grayscale&blur=10'); background-size: cover;">
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
     <div class="col-md-4 p-5 shadow-sm border rounded-3 bg-white">
         <h2 class="text-center mb-4 text-primary">Login to FlyBoredom</h2>
         <form action="" method="post">
